@@ -1,0 +1,45 @@
+-- ============================================
+-- SỬ DỤNG DATABASE QUẢN LÝ SINH VIÊN
+-- ============================================
+USE QuanLySinhVien;
+
+-- ============================================
+-- TRUY VẤN 1: Sinh viên có tên bắt đầu bằng 'h'
+-- ============================================
+SELECT * 
+FROM Student 
+WHERE StudentName LIKE 'h%';
+
+-- ============================================
+-- TRUY VẤN 2: Lớp học bắt đầu vào tháng 12
+-- ============================================
+SELECT * 
+FROM Class 
+WHERE MONTH(StartDate) = 12;
+
+-- ============================================
+-- TRUY VẤN 3: Môn học có Credit từ 3-5
+-- ============================================
+SELECT * 
+FROM Subject 
+WHERE Credit BETWEEN 3 AND 5;
+
+-- ============================================
+-- TRUY VẤN 4: Đổi ClassID của 'Hung' thành 2
+-- ============================================
+UPDATE Student 
+SET ClassId = 2 
+WHERE StudentName = 'Hung';
+
+-- Kiểm tra sau khi update
+SELECT * FROM Student WHERE StudentName = 'Hung';
+
+-- ============================================
+-- TRUY VẤN 5: Điểm thi sắp xếp giảm dần, 
+--             trùng thì sắp theo tên tăng dần
+-- ============================================
+SELECT S.StudentName, Sub.SubName, M.Mark
+FROM Student S 
+JOIN Mark M ON S.StudentId = M.StudentId 
+JOIN Subject Sub ON M.SubId = Sub.SubId
+ORDER BY M.Mark DESC, S.StudentName ASC;
